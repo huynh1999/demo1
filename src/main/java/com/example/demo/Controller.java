@@ -17,7 +17,7 @@ public class Controller {
         response.setHeader("Access-Control-Allow-Methods","PUT, GET, POST, DELETE, OPTIONS");
         return "{\n" +
                 " \"messages\": \n" +
-                "{\"data\": \"123456\""
+                "{\"text\": \"123456\""
                 +
                 " }\n" +
                 "}";
