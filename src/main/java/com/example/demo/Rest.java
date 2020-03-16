@@ -37,22 +37,12 @@ public class Rest {
                 "        \"type\": \"template\",\n" +
                 "        \"payload\": {\n" +
                 "          \"template_type\": \"button\",\n" +
-                "          \"text\": \"Hello!\",\n" +
+                "          \"text\": \""+out+"\",\n" +
                 "          \"buttons\": [\n" +
                 "            {\n" +
                 "              \"type\": \"show_block\",\n" +
-                "              \"block_names\": [\"name of block\"],\n" +
-                "              \"title\": \"Show Block\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "              \"type\": \"web_url\",\n" +
-                "              \"url\": \"https://rockets.chatfuel.com\",\n" +
-                "              \"title\": \"Visit Website\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "              \"url\": \"https://rockets.chatfuel.com/api/welcome\",\n" +
-                "              \"type\":\"json_plugin_url\",\n" +
-                "              \"title\":\"Postback\"\n" +
+                "              \"block_names\": [\"Corona\"],\n" +
+                "              \"title\": \"Corona\"\n" +
                 "            }\n" +
                 "          ]\n" +
                 "        }\n" +
