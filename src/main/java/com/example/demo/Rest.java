@@ -41,7 +41,7 @@ public class Rest {
                 "          \"buttons\": [\n" +
                 "            {\n" +
                 "              \"type\": \"show_block\",\n" +
-                "              \"block_names\": [\"Corona\"],\n" +
+                "              \"block_names\": [\"Update Corona\"],\n" +
                 "              \"title\": \"Corona\"\n" +
                 "            }\n" +
                 "          ]\n" +
