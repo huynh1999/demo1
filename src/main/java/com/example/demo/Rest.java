@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,21 +22,21 @@ public class Rest {
         HttpResponse response=client.execute(get);
         String re= EntityUtils.toString(response.getEntity());
         ObjectMapper mapper=new ObjectMapper();
-        int tong=0,chet=0,cuu=0;
+        response=client.execute(new HttpGet("https://code.junookyo.xyz/api/ncov-moh/data.json"));
+        String reTG= EntityUtils.toString(response.getEntity());
+        JsonNode TG=mapper.readTree(reTG);
         JsonNode listnode=mapper.readTree(re);
         JsonNode vn = null;
         for(JsonNode node:listnode)
         {
-            tong+=node.get("Total_Cases").asInt();
-            chet+=node.get("Total_Deaths").asInt();
-            cuu+=node.get("Total_Recovered").asInt();
-            if(node.get("Country_Name").asText().equals("Vietnam"))vn=node;
+            if(node.get("Country_Name").asText().equals("Vietnam")){vn=node;
+            break;}
         }
         assert vn != null;
         String out="----TG----\\n" +
-                "Số ca nhiễm : "+tong+
-                "\\nSố ca tử vong: "+chet+
-                "\\nSố ca chữa khỏi: "+cuu+
+                "Số ca nhiễm : "+TG.get("data").get("global").get("cases").asText()+
+                "\\nSố ca tử vong: "+TG.get("data").get("global").get("deaths").asText()+
+                "\\nSố ca chữa khỏi: "+TG.get("data").get("global").get("recovered").asText()+
                 "\\n----VN----\\n" +
                 "Số ca nhiễm : "+vn.get("Total_Cases").asText()+"("+vn.get("New_Cases").asText()+")"+
                 "\\nSố ca tử vong: "+vn.get("Total_Deaths").asText()+
