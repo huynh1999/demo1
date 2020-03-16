@@ -16,20 +16,30 @@ import java.io.IOException;
 public class Rest {
     @GetMapping("/")
     String test() throws IOException {
-        HttpGet get=new HttpGet("https://code.junookyo.xyz/api/ncov-moh/data.json?fbclid=IwAR0e6MvY5bRj5uWO8p7eeFMOHXxLXmVLmkgGvoeD8U1AJpyKHeWbW7OEnRY");
+        HttpGet get=new HttpGet("http://corona-js.herokuapp.com/apidata");
         HttpClient client= HttpClients.createDefault();
         HttpResponse response=client.execute(get);
         String re= EntityUtils.toString(response.getEntity());
         ObjectMapper mapper=new ObjectMapper();
-        JsonNode node=mapper.readTree(re);
+        int tong=0,chet=0,cuu=0;
+        JsonNode listnode=mapper.readTree(re);
+        JsonNode vn = null;
+        for(JsonNode node:listnode)
+        {
+            tong+=node.get("Total_Cases").asInt();
+            chet+=node.get("Total_Deaths").asInt();
+            cuu+=node.get("Total_Recovered").asInt();
+            if(node.get("Country_Name").asText().equals("Vietnam"))vn=node;
+        }
+        assert vn != null;
         String out="----TG----\\n" +
-                "Số ca nhiễm : "+node.get("data").get("global").get("cases").asText()+
-                "\\nSố ca tử vong: "+node.get("data").get("global").get("deaths").asText()+
-                "\\nSố ca chữa khỏi: "+node.get("data").get("global").get("recovered").asText()+
+                "Số ca nhiễm : "+tong+
+                "\\nSố ca tử vong: "+chet+
+                "\\nSố ca chữa khỏi: "+cuu+
                 "\\n----VN----\\n" +
-                "Số ca nhiễm : "+node.get("data").get("vietnam").get("cases").asText()+
-                "\\nSố ca tử vong: "+node.get("data").get("vietnam").get("deaths").asText()+
-                "\\nSố ca chữa khỏi: "+node.get("data").get("vietnam").get("recovered").asText();
+                "Số ca nhiễm : "+vn.get("Total_Cases").asText()+"("+vn.get("New_Cases").asText()+")"+
+                "\\nSố ca tử vong: "+vn.get("Total_Deaths").asText()+
+                "\\nSố ca chữa khỏi: "+vn.get("Total_Recovered").asText();
         return "{\n" +
                 "  \"messages\": [\n" +
                 "    {\n" +
@@ -42,7 +52,7 @@ public class Rest {
                 "            {\n" +
                 "              \"type\": \"show_block\",\n" +
                 "              \"block_names\": [\"Update Corona\"],\n" +
-                "              \"title\": \"Corona\"\n" +
+                "              \"title\": \"Update Corona\"\n" +
                 "            }\n" +
                 "          ]\n" +
                 "        }\n" +
