@@ -22,10 +22,17 @@ public class Rest {
         String re= EntityUtils.toString(response.getEntity());
         ObjectMapper mapper=new ObjectMapper();
         JsonNode node=mapper.readTree(re);
-        String out="----TG----\\n";
+        String out="----TG----\\n" +
+                "Số ca nhiễm : "+node.get("data").get("global").get("cases").asText()+
+                "\\n Số ca tử vong: "+node.get("data").get("global").get("deaths").asText()+
+                "\\n Số ca chữa khỏi: "+node.get("data").get("global").get("recovered").asText()+
+                "\\n----VN----\\n" +
+                "Số ca nhiễm : "+node.get("data").get("vietnam").get("cases").asText()+
+                "\\n Số ca tử vong: "+node.get("data").get("vietnam").get("deaths").asText()+
+                "\\n Số ca chữa khỏi: "+node.get("data").get("vietnam").get("recovered").asText();
         return "    {\n" +
                 "        messages: [\n" +
-                "            {text: \""+out+"\"}\n" +
+                "            {\"text\": \""+out+"\"}\n" +
                 "        ]\n" +
                 "    }";
     }
