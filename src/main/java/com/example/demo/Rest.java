@@ -32,7 +32,7 @@ public class Rest {
                 "\\n Số ca chữa khỏi: "+node.get("data").get("vietnam").get("recovered").asText();
         return "    {\n" +
                 "        messages: [\n" +
-                "            {\"text\": \""+out+"\"}\n" +
+                "            {\"text\": \""+"out"+"\"}\n" +
                 "        ]\n" +
                 "    }";
     }
