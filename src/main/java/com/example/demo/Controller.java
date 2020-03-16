@@ -16,10 +16,10 @@ public class Controller {
         response.setHeader("Access-Control-Allow-Headers","origin, x-requested-with, content-type");
         response.setHeader("Access-Control-Allow-Methods","PUT, GET, POST, DELETE, OPTIONS");
         return "{\n" +
-                " \"messages\": \n" +
+                " \"messages\": [\n" +
                 "{\"text\": \"123456\""
                 +
-                " }\n" +
+                " }\n]" +
                 "}";
     }
 }
