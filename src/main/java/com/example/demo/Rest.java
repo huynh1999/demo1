@@ -11,6 +11,7 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @RestController
@@ -61,5 +62,10 @@ public class Rest {
                 "    }\n" +
                 "  ]\n" +
                 "}";
+    }
+    @GetMapping("/ip")
+    String ip(HttpServletRequest request)
+    {
+        return request.getRemoteAddr();
     }
 }
